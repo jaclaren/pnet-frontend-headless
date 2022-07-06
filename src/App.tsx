@@ -1,19 +1,16 @@
-import React from "react";
-import logo from "./logo.svg";
 import "./App.css";
 import { Navigation } from "./components/Navigation/Navigation";
-import { BrowserRouter, Outlet, Route, Routes } from "react-router-dom";
+import { Outlet } from "react-router-dom";
+import { ReviewSuccesses } from "./components/ReviewSuccesses/ReviewSuccesses";
+import { withFetchedGameData } from "./hocs/WithFetchedGameData";
+import { Fragment } from "react";
 
 function TopGamesFull() {
   return <div className="topgames">Top games</div>;
 }
 
-function ReviewSuccesses() {
-  return <div className="reviewsuccesses">Review successes</div>;
-}
-
-function PreviouslyUpdatedGames() {
-  return <div className="pugames">Previously updated games</div>;
+function PreviouslyUpdatedGames(props:any) {
+  return <div className="pugames">Previously updated games {props.items.length}</div>;
 }
 
 function Footer() {
@@ -21,12 +18,15 @@ function Footer() {
 }
 
 export function FrontPage() {
+  const LatestByReviews = withFetchedGameData(ReviewSuccesses, `http://dev-peliarvostelut.net/wp-json/public/game/get?itemCount=30&mode=latest-by-reviews`)
+  const WorthMention = withFetchedGameData(PreviouslyUpdatedGames, `http://dev-peliarvostelut.net/wp-json/public/game/get?itemCount=30&mode=worth-mention`)  
+
   return (
-    <div className="frontpage">      
+    <div className="frontpage">            
       <TopGamesFull />
-      <ReviewSuccesses />
-      <PreviouslyUpdatedGames />
-      <Footer />
+      <LatestByReviews />
+      <WorthMention />      
+      <Footer />      
     </div>
   );
 }
