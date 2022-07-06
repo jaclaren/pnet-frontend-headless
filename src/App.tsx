@@ -4,13 +4,10 @@ import { Outlet } from "react-router-dom";
 import { ReviewSuccesses } from "./components/ReviewSuccesses/ReviewSuccesses";
 import { withFetchedGameData } from "./hocs/WithFetchedGameData";
 import { Fragment } from "react";
+import { PreviouslyUpdatedGames } from "./components/PreviouslyUpdatedGames/PreviouslyUpdatedGames";
 
-function TopGamesFull() {
-  return <div className="topgames">Top games</div>;
-}
-
-function PreviouslyUpdatedGames(props:any) {
-  return <div className="pugames">Previously updated games {props.items.length}</div>;
+function TopGamesFull(props:any) {
+  return <div className="topgames">Top games {props.items.length}</div>;
 }
 
 function Footer() {
@@ -18,12 +15,13 @@ function Footer() {
 }
 
 export function FrontPage() {
-  const LatestByReviews = withFetchedGameData(ReviewSuccesses, `http://dev-peliarvostelut.net/wp-json/public/game/get?itemCount=30&mode=latest-by-reviews`)
-  const WorthMention = withFetchedGameData(PreviouslyUpdatedGames, `http://dev-peliarvostelut.net/wp-json/public/game/get?itemCount=30&mode=worth-mention`)  
+  const LatestByReviews = withFetchedGameData(ReviewSuccesses, `http://dev-peliarvostelut.net/wp-json/public/game/get?itemCount=30&mode=latest-by-reviews`, `Virhe ladattaessa pelejä`)
+  const WorthMention = withFetchedGameData(PreviouslyUpdatedGames, `http://dev-peliarvostelut.net/wp-json/public/game/get?itemCount=30&mode=worth-mention`, `Virhe ladattaessa pelejä`)  
+  const TopGames = withFetchedGameData(TopGamesFull, `http://dev-peliarvostelut.net/wp-json/public/game/get?itemCount=30&mode=topgames`, `Virhe ladattaessa pelejä`)  
 
   return (
     <div className="frontpage">            
-      <TopGamesFull />
+      <TopGames />
       <LatestByReviews />
       <WorthMention />      
       <Footer />      
