@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
-import App, { DefaultPage, FrontPage } from "./App";
+import App, { CompilationsPage, FrontPage, InformationPage } from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
@@ -12,9 +12,10 @@ root.render(
   <React.StrictMode>
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<App />}>
-          <Route path="fp" element={<FrontPage />} />
-          <Route path="df" element={<DefaultPage />} />
+        <Route path="/" element={<App />}>          
+          <Route path="" element={<FrontPage />} />
+          <Route path="koosteet" element={<CompilationsPage />} />
+          <Route path="tiedot" element={<InformationPage />} />
           <Route
             path="*"
             element={

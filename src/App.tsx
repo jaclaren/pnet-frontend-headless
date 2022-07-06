@@ -22,8 +22,7 @@ function Footer() {
 
 export function FrontPage() {
   return (
-    <div className="frontpage">
-      <Navigation />
+    <div className="frontpage">      
       <TopGamesFull />
       <ReviewSuccesses />
       <PreviouslyUpdatedGames />
@@ -32,16 +31,26 @@ export function FrontPage() {
   );
 }
 
-export function DefaultPage() {
+export function CompilationsPage() {
   return (
     <div className="frontpage">
-      Defaultpage
+      Koostesivu
     </div>
   );
 }
+
+export function InformationPage() {
+  return (
+    <div className="infopage">
+      infopage
+    </div>
+  );
+}
+
 function App() {
   return (
-    <div className="main">
+    <div className="main">      
+      <Navigation />
       <Outlet />
     </div>
   );
