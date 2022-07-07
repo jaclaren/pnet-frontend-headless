@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, FunctionComponent } from "react";
 import axios from "axios";
 
 function Error(props: any) {
@@ -9,33 +9,47 @@ export function withFetchedGameData(
   WrappedComponent: any,
   url: string,
   errorMessage: string
-) {
-  return (props: any) => {
+) {  
+
+  const WithFetchedGameData : FunctionComponent<any> = (props) => {
     const [items, setItems] = useState([]);
-    const [fetchError, setFetchError] = useState(false);
+    const [fetchError, setFetchError] = useState(false);    
+    const [isLoading, setIsloading] = useState(false);    
+    
+    let calledOnce = false;
 
-    useEffect(() => {
-      // @ts-ignore
+    useEffect(() => {                        
+      if(isLoading || calledOnce) 
+        return        
+
+      calledOnce = true;
+
+      setIsloading(true);
+
       axios
-        .get(url)
-        .then((response: any) => {
-          if (
-            response.data.body.games.length == 0 ||
-            !!response.data.body.games.error
-          ) {
-            setFetchError(true);
-            return;
-          }
+      .get(url)
+      .then((response: any) => {
+        if (
+          response.data.body.games.length == 0 ||
+          !!response.data.body.games.error
+        ) {
+          setFetchError(true);
+          return;
+        }        
+        
+        setItems(response.data.body.games);
+      })
+      .catch((err: any) => setFetchError(true));
+    }, [])
+    
+  
+      return fetchError ? (
+        <Error message={errorMessage} />
+      ) : (
+        <WrappedComponent items={items} />
+      );        
+  }
 
-          setItems(response.data.body.games);
-        })
-        .catch((err: any) => setFetchError(true));
-    });
+  return WithFetchedGameData
 
-    return fetchError ? (
-      <Error message={errorMessage} />
-    ) : (
-      <WrappedComponent items={items} />
-    );
-  };
 }

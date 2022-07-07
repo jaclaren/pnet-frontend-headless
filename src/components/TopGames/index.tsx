@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 import ChevronIcon from "../ChevronIcon";
-import GameVideo from "../GameVideo/index.jsx";
+import GameVideo from "../GameVideo";
 // import GameQuoteBox from '../GameQuoteBox/index.tsx'
 
 interface PnetWPEndpointGameRow {
@@ -35,6 +35,9 @@ const TopGames = (props : ITopGamesProps) => {
 		_setIndex(previousIndex < 0 ? props.maxItems - 1 : previousIndex);
 	};
 
+	if(props.items.length < index || props.items.length == 0)
+		return (<></>)
+
 	return (
 		<React.Fragment>
 			<div className="col-xs-12 col-md-4 c-topgame__nav">
@@ -56,7 +59,7 @@ const TopGames = (props : ITopGamesProps) => {
 	  <div className="c-topgame__gameinfo">		  
 			<div key={'topgame-gi-title-'.concat(`${index}`)} className="fade-in fade-in--speed1 c-topgame__title">{props.items[index].title}</div>
 			<div key={'topgame-gi-platforms-'.concat(`${index}`)} className="fade-in fade-in--speed1 c-topgame__platforms">{props.items[index].platforms.join(',')}</div>
-			<div key={'topgame-gi-darkmeta-'.concat(`${index}`)} className="fade-in fade-in--speed1 c-topgame__darkmeta">{props.items[index].reviews.length} arvostelua</div>
+			<div key={'topgame-gi-darkmeta-'.concat(`${index}`)} className="fade-in fade-in--speed1 c-topgame__darkmeta">{!!props.items[index].reviews ? props.items[index].reviews.length : 0} arvostelua</div>
 			<div key={'topgame-gi-score-'.concat(`${index}`)} className={['fade-in fade-in--speed1 c-topgame__score score-tag', 'score-tag--score-'.concat(`${props.items[index].score}`)].join(' ')}>{props.items[index].score}</div>	      
 		  </div>
 	  {/* <GameQuoteBox 

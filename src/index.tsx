@@ -1,7 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
-import App, { CompilationsPage, FrontPage, InformationPage } from "./App";
+import App, { CompilationsPage, InformationPage } from "./App";
+import { FrontPage } from "./FrontPage";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
