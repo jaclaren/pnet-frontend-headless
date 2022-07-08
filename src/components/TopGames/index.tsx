@@ -40,11 +40,15 @@ const TopGames = (props: ITopGamesProps) => {
 
   return (
     <React.Fragment>
-      <ChevronEntityNavigation
+      <ChevronEntityNavigation	  	
         onUserClickedPreviousPage={previousPage}
         maxIndex={props.maxItems}
         currentIndex={index}
         onUserClickedNextPage={nextPage}
+		baseClassName="cenavigation"
+		classNameModifier="--size-large"
+		showPagination={true}
+		size="large"
       />
       <div className="c-topgame__video">
         <GameVideo />
