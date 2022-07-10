@@ -5,7 +5,8 @@ import ChevronIcon from "../ChevronIcon";
 import GameVideo from "../GameVideo";
 import CiteScroller from "../CiteScroller/CiteScroller";
 // import GameQuoteBox from '../GameQuoteBox/index.tsx'
-import './topgames.scss';
+import "./topgames.scss";
+import { ScoreTag } from "../ScoreTag/ScoreTag";
 interface PnetWPEndpointGameRow {
   title: string;
   platforms: any[];
@@ -21,23 +22,33 @@ interface ITopGamesProps {
   compilationLinkText: string;
 }
 
-
-function TopGameInfo(props:any) {
-    return (<div className="topgames__gameinfo">
-        <div key={"topgame-gi-title-".concat(`${props.index}`)} className="fade-in fade-in--speed1 c-topgame__title">
-          {props.item.title}
-        </div>
-        <div key={"topgame-gi-platforms-".concat(`${props.index}`)} className="fade-in fade-in--speed1 c-topgame__platforms">
-          {props.item.platforms.join(",")}
-        </div>
-        <div key={"topgame-gi-darkmeta-".concat(`${props.index}`)} className="fade-in fade-in--speed1 c-topgame__darkmeta">
-          {!!props.item.reviews ? props.item.reviews.length : 0}{" "}
-          arvostelua
-        </div>
-        <div key={"topgame-gi-score-".concat(`${props.index}`)} className={["fade-in fade-in--speed1 c-topgame__score score-tag", "score-tag--score-".concat(`${props.item.score}`)].join(" ")}>
-          {props.item.score}
-        </div>
-      </div>);
+function TopGameInfo(props: any) {
+  return (
+    <div className="topgames__gameinfo">
+      <div
+        key={"topgame-gi-title-".concat(`${props.index}`)}
+        className="fade-in fade-in--speed1 topgames__title"
+      >
+        {props.item.title}
+      </div>
+      <div
+        key={"topgame-gi-platforms-".concat(`${props.index}`)}
+        className="fade-in fade-in--speed1 topgames__platforms"
+      >
+        {props.item.platforms.join(",")}
+      </div>
+      <div
+        key={"topgame-gi-darkmeta-".concat(`${props.index}`)}
+        className="fade-in fade-in--speed1 topgames__darkmeta"
+      >
+        {!!props.item.reviews ? props.item.reviews.length : 0} arvostelua
+      </div>
+      <ScoreTag
+        key={"topgame-gi-score-".concat(`${props.index}`)}
+        score={props.item.score}
+      ></ScoreTag>{" "}
+    </div>
+  );
 }
 
 const TopGames = (props: ITopGamesProps) => {
@@ -61,20 +72,20 @@ const TopGames = (props: ITopGamesProps) => {
 
   return (
     <React.Fragment>
-      <ChevronEntityNavigation	  	
+      <ChevronEntityNavigation
         onUserClickedPreviousPage={previousPage}
         maxIndex={props.maxItems}
         currentIndex={index}
         onUserClickedNextPage={nextPage}
-		baseClassName="topgames__navigation cenavigation"		
-		showPagination={true}
-		size="large"
+        baseClassName="topgames__navigation cenavigation"
+        showPagination={true}
+        size="large"
       />
       <div className="topgames__video">
-        <GameVideo videoUrl={props.items[index].video} />        
+        <GameVideo videoUrl={props.items[index].video} />
       </div>
-		<TopGameInfo index={index} item={props.items[index]}></TopGameInfo>
-    <CiteScroller reviews={props.items[index].reviews}></CiteScroller>     
+      <TopGameInfo index={index} item={props.items[index]}></TopGameInfo>
+      <CiteScroller reviews={props.items[index].reviews}></CiteScroller>
       <footer className="topgames__footer">
         <a
           href={props.items[index].href}
@@ -92,17 +103,5 @@ TopGames.defaultProps = {
   maxItems: 10,
   compilationLinkText: "Pelin kooste",
 };
-
-// const anim = () => {
-// 	_setAnimationClass("u-fadeout");
-// 	// _setAnimationComplete(false)
-
-// 	setTimeout(() => {
-// 		_setAnimationClass("u-fadein");
-// 		setTimeout(() => {
-// 			_setAnimationComplete(true);
-// 		}, 1000);
-// 	}, 0);
-// };
 
 export default TopGames;
