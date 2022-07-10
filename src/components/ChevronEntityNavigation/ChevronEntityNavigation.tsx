@@ -2,6 +2,8 @@ import React, { FunctionComponent } from "react";
 import { Link } from "react-router-dom";
 import ChevronIcon from "../ChevronIcon";
 
+import './styles.scss';
+
 type TNavSize = 'large' | 'small'
 
 interface IChevronEntityNavigationProps {
@@ -44,5 +46,5 @@ export const ChevronEntityNavigation: FunctionComponent<
 };
 
 ChevronEntityNavigation.defaultProps = {
-  baseClassName: `cenav`
+  baseClassName: `cenavigation`
 }
