@@ -5,13 +5,14 @@ import ChevronIcon from "../ChevronIcon";
 import GameVideo from "../GameVideo";
 import CiteScroller from "../CiteScroller/CiteScroller";
 // import GameQuoteBox from '../GameQuoteBox/index.tsx'
-
+import './topgames.scss';
 interface PnetWPEndpointGameRow {
   title: string;
   platforms: any[];
   reviews: any[];
   score: number | string;
   href: string;
+  video?: string;
 }
 
 interface ITopGamesProps {
@@ -22,7 +23,7 @@ interface ITopGamesProps {
 
 
 function TopGameInfo(props:any) {
-    return (<div className="topgame">
+    return (<div className="topgames__gameinfo">
         <div key={"topgame-gi-title-".concat(`${props.index}`)} className="fade-in fade-in--speed1 c-topgame__title">
           {props.item.title}
         </div>
@@ -65,32 +66,21 @@ const TopGames = (props: ITopGamesProps) => {
         maxIndex={props.maxItems}
         currentIndex={index}
         onUserClickedNextPage={nextPage}
-		baseClassName="cenavigation"		
+		baseClassName="topgames__navigation cenavigation"		
 		showPagination={true}
 		size="large"
       />
-      <div className="c-topgame__video">
-        <GameVideo />
+      <div className="topgames__video">
+        <GameVideo videoUrl={props.items[index].video} />        
       </div>
 		<TopGameInfo index={index} item={props.items[index]}></TopGameInfo>
-    <CiteScroller reviews={props.items[index].reviews}></CiteScroller>      {/* <GameQuoteBox 
-	  	index={index}
-	  	quotes={
-			props.items[index].reviews.map(t => {
-				return {
-					quote : t.cite,
-					siteName : t.site_data.name,
-					siteScore : t.score,
-					url : t.url
-				}
-			})		  
-		  }
-	  /> */}
-      <footer className="c-topgame__footer">
+    <CiteScroller reviews={props.items[index].reviews}></CiteScroller>     
+      <footer className="topgames__footer">
         <a
           href={props.items[index].href}
           className="c-topgame__btn-compilation button button--thin button--bright"
         >
+          ??
           {props.compilationLinkText}
         </a>
       </footer>
