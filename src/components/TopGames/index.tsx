@@ -3,6 +3,7 @@ import { ChevronEntityNavigation } from "../ChevronEntityNavigation/ChevronEntit
 
 import ChevronIcon from "../ChevronIcon";
 import GameVideo from "../GameVideo";
+import CiteScroller from "../CiteScroller/CiteScroller";
 // import GameQuoteBox from '../GameQuoteBox/index.tsx'
 
 interface PnetWPEndpointGameRow {
@@ -17,6 +18,25 @@ interface ITopGamesProps {
   maxItems: number;
   items: PnetWPEndpointGameRow[];
   compilationLinkText: string;
+}
+
+
+function TopGameInfo(props:any) {
+    return (<div className="topgame">
+        <div key={"topgame-gi-title-".concat(`${props.index}`)} className="fade-in fade-in--speed1 c-topgame__title">
+          {props.item.title}
+        </div>
+        <div key={"topgame-gi-platforms-".concat(`${props.index}`)} className="fade-in fade-in--speed1 c-topgame__platforms">
+          {props.item.platforms.join(",")}
+        </div>
+        <div key={"topgame-gi-darkmeta-".concat(`${props.index}`)} className="fade-in fade-in--speed1 c-topgame__darkmeta">
+          {!!props.item.reviews ? props.item.reviews.length : 0}{" "}
+          arvostelua
+        </div>
+        <div key={"topgame-gi-score-".concat(`${props.index}`)} className={["fade-in fade-in--speed1 c-topgame__score score-tag", "score-tag--score-".concat(`${props.item.score}`)].join(" ")}>
+          {props.item.score}
+        </div>
+      </div>);
 }
 
 const TopGames = (props: ITopGamesProps) => {
@@ -45,45 +65,15 @@ const TopGames = (props: ITopGamesProps) => {
         maxIndex={props.maxItems}
         currentIndex={index}
         onUserClickedNextPage={nextPage}
-		baseClassName="cenavigation"
-		classNameModifier="--size-large"
+		baseClassName="cenavigation"		
 		showPagination={true}
 		size="large"
       />
       <div className="c-topgame__video">
         <GameVideo />
       </div>
-      <div className="c-topgame__gameinfo">
-        <div
-          key={"topgame-gi-title-".concat(`${index}`)}
-          className="fade-in fade-in--speed1 c-topgame__title"
-        >
-          {props.items[index].title}
-        </div>
-        <div
-          key={"topgame-gi-platforms-".concat(`${index}`)}
-          className="fade-in fade-in--speed1 c-topgame__platforms"
-        >
-          {props.items[index].platforms.join(",")}
-        </div>
-        <div
-          key={"topgame-gi-darkmeta-".concat(`${index}`)}
-          className="fade-in fade-in--speed1 c-topgame__darkmeta"
-        >
-          {!!props.items[index].reviews ? props.items[index].reviews.length : 0}{" "}
-          arvostelua
-        </div>
-        <div
-          key={"topgame-gi-score-".concat(`${index}`)}
-          className={[
-            "fade-in fade-in--speed1 c-topgame__score score-tag",
-            "score-tag--score-".concat(`${props.items[index].score}`),
-          ].join(" ")}
-        >
-          {props.items[index].score}
-        </div>
-      </div>
-      {/* <GameQuoteBox 
+		<TopGameInfo index={index} item={props.items[index]}></TopGameInfo>
+    <CiteScroller reviews={props.items[index].reviews}></CiteScroller>      {/* <GameQuoteBox 
 	  	index={index}
 	  	quotes={
 			props.items[index].reviews.map(t => {

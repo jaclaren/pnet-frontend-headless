@@ -3,14 +3,14 @@ import { Link } from "react-router-dom";
 import ChevronIcon from "../ChevronIcon";
 
 type TNavSize = 'large' | 'small'
+
 interface IChevronEntityNavigationProps {
   currentIndex: number;
   maxIndex: number;
   onUserClickedNextPage: Function;
   onUserClickedPreviousPage: Function;
   showPagination: boolean;
-  baseClassName: string;
-  classNameModifier: string;
+  baseClassName: string;  
   size : TNavSize;
 }
 
@@ -18,7 +18,7 @@ export const ChevronEntityNavigation: FunctionComponent<
   IChevronEntityNavigationProps
 > = (props) => {
   return (
-    <div className={`${props.baseClassName}${props.classNameModifier}`}>
+    <div className={`${props.baseClassName}--size-${props.size}`}>
       <button
         className={`${props.baseClassName}__button ${props.baseClassName}__button--role-previous`}
         onClick={() => props.onUserClickedPreviousPage()}
@@ -42,3 +42,7 @@ export const ChevronEntityNavigation: FunctionComponent<
     </div>
   );
 };
+
+ChevronEntityNavigation.defaultProps = {
+  baseClassName: `cenav`
+}
