@@ -1,2 +1,7 @@
 @import './colors.scss';
 @import './reset.scss';
+
+body {
+    color : var(--color-grey-900);
+    background: var(--color-grey-80);
+}
